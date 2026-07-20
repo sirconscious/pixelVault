@@ -74,7 +74,7 @@ export default async function HomePage() {
               </div>
 
               <h1
-                className="font-display font-semibold tracking-tight text-[2.6rem] sm:text-6xl lg:text-[5rem] leading-[0.95] mb-8"
+                className="font-display font-semibold tracking-tight text-[2.6rem] sm:text-6xl lg:text-[5rem] leading-[0.95] mb-8 cursor-target"
                 data-reveal
                 data-delay="0.05"
               >
@@ -200,7 +200,7 @@ export default async function HomePage() {
                   <span className="inline-block w-6 h-px bg-primary/60" />
                   How it works
                 </div>
-                <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight">
+                <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight cursor-target">
                   Three steps. None of them are{" "}
                   <span className="italic text-base-content/55">
                     &apos;proceed to checkout.&apos;
@@ -271,7 +271,7 @@ export default async function HomePage() {
                   <span className="inline-block w-6 h-px bg-primary/60" />
                   Catalog preview
                 </div>
-                <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight max-w-2xl">
+                <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight max-w-2xl cursor-target">
                   Pick a shelf, mix across them.
                 </h2>
               </div>
@@ -293,7 +293,7 @@ export default async function HomePage() {
               {categories.map((c) => (
                 <article
                   key={c.slug}
-                  className="card bg-base-100 border hairline rounded-2xl hover:border-primary/40 transition-colors group overflow-hidden"
+                  className="card bg-base-100 border hairline rounded-2xl hover:border-primary/40 transition-colors group overflow-hidden cursor-target"
                   data-stagger-item
                 >
                   <div className="card-body p-0">
@@ -374,7 +374,7 @@ export default async function HomePage() {
                   <span className="inline-block w-6 h-px bg-primary/60" />
                   Checkout, reimagined
                 </div>
-                <h2 className="font-display font-semibold text-4xl lg:text-[3.4rem] leading-[1.05] tracking-tight mb-7">
+                <h2 className="font-display font-semibold text-4xl lg:text-[3.4rem] leading-[1.05] tracking-tight mb-7 cursor-target">
                   Your cart isn&apos;t a modal.
                   <br />
                   It&apos;s a message you can read.

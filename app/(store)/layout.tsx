@@ -2,6 +2,7 @@ import { getStoreSettings } from "@/lib/settings";
 import Navbar from "@/components/store/Navbar";
 import Footer from "@/components/store/Footer";
 import Toaster from "@/components/ui/Toaster";
+import TargetCursor from "@/components/ui/TargetCursor";
 
 export default async function StoreLayout({
   children,
@@ -12,6 +13,7 @@ export default async function StoreLayout({
 
   return (
     <div className="drawer">
+      <TargetCursor cursorColor="#7c3aed" cursorColorOnTarget="#a855f7" />
       <input id="mobile-nav" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col min-h-screen">
         <Navbar

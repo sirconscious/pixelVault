@@ -38,7 +38,7 @@ export default async function CatalogPage() {
           <span className="inline-block w-6 h-px bg-primary/60" />
           All categories
         </div>
-        <h1 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight max-w-2xl">
+        <h1 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight max-w-2xl cursor-target">
           Pick a shelf, mix across them.
         </h1>
         <p className="mt-4 max-w-2xl text-base-content/60 text-lg leading-relaxed">
@@ -58,7 +58,7 @@ export default async function CatalogPage() {
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="card bg-base-100 border hairline rounded-2xl hover:border-primary/40 transition-colors group overflow-hidden"
+              className="card bg-base-100 border hairline rounded-2xl hover:border-primary/40 transition-colors group overflow-hidden cursor-target"
             >
               {c.imageUrl && (
                 <div className="w-full h-44 overflow-hidden bg-base-200">
@@ -79,7 +79,7 @@ export default async function CatalogPage() {
                   </span>
                 </div>
 
-                <h2 className="font-display text-2xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h2 className="font-display text-2xl font-semibold mb-2 group-hover:text-primary transition-colors cursor-target">
                   {c.name}
                 </h2>
 
