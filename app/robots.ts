@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/admin/"],
       },
     ],
-    sitemap: "https://pixelvault-liart.vercel.app/sitemap.xml",
+    sitemap: "https://pixel-vault-azure.vercel.app/sitemap.xml",
   };
 }

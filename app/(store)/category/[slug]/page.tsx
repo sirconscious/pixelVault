@@ -56,8 +56,8 @@ export default async function CategoryPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixelvault-liart.vercel.app" },
-      { "@type": "ListItem", position: 2, name: "Catalog", item: "https://pixelvault-liart.vercel.app/catalog" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixel-vault-azure.vercel.app" },
+      { "@type": "ListItem", position: 2, name: "Catalog", item: "https://pixel-vault-azure.vercel.app/catalog" },
       { "@type": "ListItem", position: 3, name: category.name },
     ],
   };
@@ -70,7 +70,7 @@ export default async function CategoryPage({
     itemListElement: products.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://pixelvault-liart.vercel.app/product/${p.slug}`,
+      url: `https://pixel-vault-azure.vercel.app/product/${p.slug}`,
       name: p.name,
     })),
   } : null;

@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
 });
 
-const SITE_URL = "https://pixelvault-liart.vercel.app";
+const SITE_URL = "https://pixel-vault-azure.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -82,6 +82,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <head>
+        <meta name="google-site-verification" content="TYj4Vgyu2Nf-HO1Up2v_hZiFs5kgQ2XO_9P5gu8laLg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

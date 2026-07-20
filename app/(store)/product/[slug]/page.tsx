@@ -64,9 +64,9 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixelvault-liart.vercel.app" },
-      { "@type": "ListItem", position: 2, name: "Catalog", item: "https://pixelvault-liart.vercel.app/catalog" },
-      { "@type": "ListItem", position: 3, name: product.category.name, item: `https://pixelvault-liart.vercel.app/category/${product.category.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixel-vault-azure.vercel.app" },
+      { "@type": "ListItem", position: 2, name: "Catalog", item: "https://pixel-vault-azure.vercel.app/catalog" },
+      { "@type": "ListItem", position: 3, name: product.category.name, item: `https://pixel-vault-azure.vercel.app/category/${product.category.slug}` },
       { "@type": "ListItem", position: 4, name: product.name },
     ],
   };
@@ -86,7 +86,7 @@ export default async function ProductPage({
     brand: { "@type": "Brand", name: product.platform },
     offers: lowestPrice !== undefined ? {
       "@type": "Offer",
-      url: `https://pixelvault-liart.vercel.app/product/${product.slug}`,
+      url: `https://pixel-vault-azure.vercel.app/product/${product.slug}`,
       priceCurrency: currency,
       price: lowestPrice,
       availability: product.variants.some((v) => v.inStock)
