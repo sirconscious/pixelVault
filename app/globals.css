@@ -1,26 +1,204 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+}
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Borderly — violet accent on clean white (light only) */
+@plugin "daisyui/theme" {
+  name: "Borderly";
+  default: true;
+  prefersdark: true;
+  color-scheme: light;
+  --color-info: oklch(0.546 0.241 267.4);
+  --color-error: oklch(0.575 0.241 55.3);
+  --color-accent: oklch(0.555 0.310 194.9);
+  --color-neutral: oklch(0.910 0.006 284.9);
+  --color-primary: oklch(0.546 0.264 284.9);
+  --color-success: oklch(0.555 0.241 161.8);
+  --color-warning: oklch(0.625 0.241 111.6);
+  --color-base-100: oklch(0.985 0.002 284.9);
+  --color-base-200: oklch(0.960 0.003 284.9);
+  --color-base-300: oklch(0.920 0.004 284.9);
+  --color-secondary: oklch(0.665 0.269 14.9);
+  --color-base-content: oklch(0.220 0.014 284.9);
+  --color-info-content: oklch(0.970 0.010 267.4);
+  --color-error-content: oklch(0.975 0.010 55.3);
+  --color-accent-content: oklch(0.975 0.010 194.9);
+  --color-neutral-content: oklch(0.220 0.014 284.9);
+  --color-primary-content: oklch(0.980 0.008 284.9);
+  --color-success-content: oklch(0.975 0.010 161.8);
+  --color-warning-content: oklch(0.220 0.014 111.6);
+  --color-secondary-content: oklch(0.980 0.008 14.9);
+  --depth: 0;
+  --noise: 0;
+  --border: 1px;
+  --radius-box: 1rem;
+  --radius-field: 0.6rem;
+  --radius-selector: 1rem;
+  --size-field: 0.25rem;
+  --size-selector: 0.25rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-body: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---- Typography helpers ---- */
+.font-display {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+.font-body {
+  font-family: var(--font-inter), sans-serif;
+}
+.font-mono {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+.display-italic {
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* ---- Hairline borders ---- */
+.hairline {
+  border-color: color-mix(in oklch, var(--color-base-300) 55%, transparent);
+}
+.hairline-strong {
+  border-color: color-mix(in oklch, var(--color-base-300) 90%, transparent);
+}
+
+/* ---- Marquee ---- */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6%,
+    black 94%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6%,
+    black 94%,
+    transparent
+  );
+}
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* ---- Phone frame ---- */
+.phone-frame {
+  background: var(--color-base-200);
+  border: 1px solid color-mix(in oklch, var(--color-base-300) 75%, transparent);
+  border-radius: 42px;
+  box-shadow:
+    0 50px 90px -40px oklch(0 0 0 / 0.7),
+    0 0 0 1px color-mix(in oklch, var(--color-base-300) 45%, transparent),
+    inset 0 1px 0 color-mix(in oklch, var(--color-base-content) 6%, transparent);
+  padding: 10px;
+}
+.phone-screen {
+  background: var(--color-base-100);
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--color-base-300) 40%, transparent);
+}
+
+/* ---- Chat bubbles ---- */
+.bubble-in {
+  background: var(--color-base-200);
+  border: 1px solid color-mix(in oklch, var(--color-base-300) 55%, transparent);
+  color: var(--color-base-content);
+}
+.bubble-out {
+  background: color-mix(in oklch, var(--color-primary) 14%, transparent);
+  border: 1px solid color-mix(in oklch, var(--color-primary) 32%, transparent);
+  color: var(--color-base-content);
+}
+.bubble-total {
+  background: var(--color-primary);
+  color: var(--color-primary-content);
+  border: 1px solid var(--color-primary);
+  box-shadow:
+    0 12px 40px -10px color-mix(in oklch, var(--color-primary) 55%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--color-primary) 25%, transparent);
+}
+
+/* ---- Chat background — subtle dot grid ---- */
+.chat-bg {
+  background-color: var(--color-base-100);
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--color-base-300) 20%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 14px 14px;
+}
+
+/* ---- Live dot pulse ---- */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+.live-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--color-primary) 35%, transparent);
+  color: var(--color-base-content);
+}
+
+.link-quiet {
+  color: color-mix(in oklch, var(--color-base-content) 60%, transparent);
+  transition: color 0.2s ease;
+}
+.link-quiet:hover {
+  color: var(--color-primary);
+}
+
+@layer utilities {
+  input,
+  textarea {
+    @apply outline-0 hover:border-primary transition-colors!;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .live-dot {
+    animation: none !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .marquee-mask {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
 }

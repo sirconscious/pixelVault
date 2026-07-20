@@ -1,0 +1,76 @@
+// Prisma schema — Digital Products Store
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  name        String
+  slug        String           @unique
+  description String?
+  imageUrl    String?
+  platform    String
+  categoryId  String
+  category    Category         @relation(fields: [categoryId], references: [id])
+  isActive    Boolean          @default(true)
+  isFeatured  Boolean          @default(false)
+  sortOrder   Int              @default(0)
+  variants    ProductVariant[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([categoryId])
+}
+
+// A variant = a purchasable option of a product, e.g. "$10 Steam Wallet",
+// "$25 Steam Wallet", "Standard Edition", "Deluxe Edition"
+model ProductVariant {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  label     String
+  price     Decimal  @db.Decimal(10, 2)
+  currency  String   @default("USD")
+  inStock   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+}
+
+// Singleton-style settings row.
+model StoreSettings {
+  id               String @id @default(cuid())
+  storeName        String @default("My Digital Store")
+  whatsappNumber   String
+  whatsappGreeting String @default("Hello! I'd like to order:")
+  currency         String @default("USD")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
