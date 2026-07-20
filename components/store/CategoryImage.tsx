@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImageOff } from "lucide-react";
 
 export default function CategoryImage({
@@ -12,8 +12,13 @@ export default function CategoryImage({
   alt: string;
   className?: string;
 }) {
+  const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   if (error || !src) {
     return (
@@ -25,6 +30,7 @@ export default function CategoryImage({
 
   return (
     <img
+      ref={imgRef}
       src={src}
       alt={alt}
       className={`${className} ${loaded ? "" : "opacity-0"}`}

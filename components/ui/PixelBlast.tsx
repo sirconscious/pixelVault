@@ -53,6 +53,7 @@ type PixelBlastProps = {
   transparent?: boolean;
   edgeFade?: number;
   noiseAmount?: number;
+  onReady?: () => void;
 };
 
 const createTouchTexture = (): TouchTexture => {
@@ -373,8 +374,9 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
   speed = 0.5,
   transparent = true,
   edgeFade = 0.5,
-  noiseAmount = 0
-}) => {
+  noiseAmount = 0,
+  onReady
+}: PixelBlastProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const visibilityRef = useRef({ visible: true });
   const speedRef = useRef(speed);
@@ -583,6 +585,7 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
         passive: true
       });
       let raf = 0;
+      let readyFired = false;
       const animate = () => {
         if (autoPauseOffscreen && !visibilityRef.current.visible) {
           raf = requestAnimationFrame(animate);
@@ -607,6 +610,10 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
           });
           composer.render();
         } else renderer.render(scene, camera);
+        if (!readyFired) {
+          readyFired = true;
+          onReady?.();
+        }
         raf = requestAnimationFrame(animate);
       };
       raf = requestAnimationFrame(animate);
@@ -685,7 +692,8 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
     autoPauseOffscreen,
     variant,
     color,
-    speed
+    speed,
+    onReady
   ]);
 
   return (

@@ -1,4 +1,10 @@
 @import "tailwindcss";
+
+@property --r {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
 @plugin "daisyui" {
   themes: false;
 }
@@ -151,6 +157,10 @@
     opacity: 0.35;
     transform: scale(0.8);
   }
+}
+
+@keyframes intro-spin {
+  to { transform: rotate(360deg); }
 }
 .live-dot {
   animation: pulse-dot 2s ease-in-out infinite;

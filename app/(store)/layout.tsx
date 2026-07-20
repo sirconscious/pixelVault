@@ -2,7 +2,8 @@ import { getStoreSettings } from "@/lib/settings";
 import Navbar from "@/components/store/Navbar";
 import Footer from "@/components/store/Footer";
 import Toaster from "@/components/ui/Toaster";
-import TargetCursor from "@/components/ui/TargetCursor";
+import IntroLoader from "@/components/ui/IntroLoader";
+import ConditionalCursor from "@/components/store/ConditionalCursor";
 
 export default async function StoreLayout({
   children,
@@ -13,7 +14,7 @@ export default async function StoreLayout({
 
   return (
     <div className="drawer">
-      <TargetCursor cursorColor="#7c3aed" cursorColorOnTarget="#a855f7" />
+      <ConditionalCursor />
       <input id="mobile-nav" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col min-h-screen">
         <Navbar
@@ -21,7 +22,9 @@ export default async function StoreLayout({
           whatsappNumber={settings.whatsappNumber}
           whatsappGreeting={settings.whatsappGreeting}
         />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1">
+          <IntroLoader>{children}</IntroLoader>
+        </div>
         <Footer
           storeName={settings.storeName}
           whatsappNumber={settings.whatsappNumber}
