@@ -4,6 +4,7 @@ import { getCatalogCategories } from "@/lib/catalog";
 import { buildWaLink } from "@/lib/whatsapp";
 import HomeMotion from "@/components/store/HomeMotion";
 import CategoryImage from "@/components/store/CategoryImage";
+import HeroBackground from "@/components/store/HeroBackground";
 
 function WhatsAppGlyph({ className = "" }: { className?: string }) {
   return (
@@ -53,16 +54,9 @@ export default async function HomePage() {
 
       {/* HERO */}
       <header className="relative overflow-hidden">
-        <div
-          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none opacity-50"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in oklch, var(--color-primary) 13%, transparent), transparent 70%)",
-            transform: "translate(30%, -30%)",
-          }}
-        />
+        <HeroBackground />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28 relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-7">
               <div
