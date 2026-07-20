@@ -292,7 +292,7 @@ export default async function HomePage() {
                 >
                   <div className="card-body p-0">
                     {c.imageUrl && (
-                      <div className="w-full h-40 overflow-hidden bg-base-200">
+                      <div className="relative w-full h-40 overflow-hidden bg-base-200">
                         <CategoryImage
                           src={c.imageUrl}
                           alt={c.name}

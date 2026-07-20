@@ -16,8 +16,28 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({ where: { slug } });
-  return { title: product ? `${product.name} — PixelVault` : "Product" };
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    include: { variants: { orderBy: { sortOrder: "asc" } }, category: true },
+  });
+  if (!product) return { title: "Product" };
+  const price = product.variants[0]
+    ? `${product.variants[0].currency} ${Number(product.variants[0].price).toFixed(2)}`
+    : "";
+  const description =
+    product.description ||
+    `Buy ${product.name} (${product.platform}) on PixelVault${price ? ` from ${price}` : ""} — instant delivery via WhatsApp.`;
+  return {
+    title: product.name,
+    description,
+    alternates: { canonical: `/product/${product.slug}` },
+    openGraph: {
+      title: product.name,
+      description,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title: product.name, description },
+  };
 }
 
 export default async function ProductPage({
@@ -40,6 +60,42 @@ export default async function ProductPage({
 
   if (!product) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixelvault-liart.vercel.app" },
+      { "@type": "ListItem", position: 2, name: "Catalog", item: "https://pixelvault-liart.vercel.app/catalog" },
+      { "@type": "ListItem", position: 3, name: product.category.name, item: `https://pixelvault-liart.vercel.app/category/${product.category.slug}` },
+      { "@type": "ListItem", position: 4, name: product.name },
+    ],
+  };
+
+  const lowestPrice = product.variants.length > 0
+    ? Math.min(...product.variants.map((v) => toNumber(v.price)))
+    : undefined;
+
+  const currency = product.variants[0]?.currency ?? "USD";
+
+  const productLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description || `${product.name} (${product.platform}) — digital delivery via WhatsApp.`,
+    category: product.category.name,
+    brand: { "@type": "Brand", name: product.platform },
+    offers: lowestPrice !== undefined ? {
+      "@type": "Offer",
+      url: `https://pixelvault-liart.vercel.app/product/${product.slug}`,
+      priceCurrency: currency,
+      price: lowestPrice,
+      availability: product.variants.some((v) => v.inStock)
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+    } : undefined,
+  };
+
   const purchaseProduct: PurchaseProduct = {
     name: product.name,
     slug: product.slug,
@@ -54,6 +110,15 @@ export default async function ProductPage({
   };
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
+      />
     <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10 lg:py-14">
       {/* Breadcrumb */}
       <nav className="mb-8 flex items-center gap-1.5 text-sm font-mono text-base-content/50">
@@ -126,5 +191,6 @@ export default async function ProductPage({
         </div>
       </div>
     </div>
+    </>
   );
 }

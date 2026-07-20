@@ -20,10 +20,38 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
 });
 
+const SITE_URL = "https://pixelvault-liart.vercel.app";
+
 export const metadata: Metadata = {
-  title: "PixelVault — game credits, handed over by a human",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "PixelVault — game credits, handed over by a human",
+    template: "%s — PixelVault",
+  },
   description:
     "Steam Wallet, Xbox Gift Cards, PC game keys. No account, no checkout form — send a message on WhatsApp and a real person replies with your codes.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "PixelVault",
+    url: SITE_URL,
+    title: "PixelVault — game credits, handed over by a human",
+    description:
+      "Steam Wallet, Xbox Gift Cards, PC game keys. No account, no checkout form — send a message on WhatsApp and a real person replies with your codes.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PixelVault — game credits, handed over by a human",
+    description:
+      "Steam Wallet, Xbox Gift Cards, PC game keys. No account, no checkout form — send a message on WhatsApp and a real person replies with your codes.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -31,12 +59,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "PixelVault",
+    url: SITE_URL,
+    description:
+      "Steam Wallet, Xbox Gift Cards, PC game keys. No account, no checkout form — send a message on WhatsApp and a real person replies with your codes.",
+  };
+
+  const websiteLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "PixelVault",
+    url: SITE_URL,
+  };
+
   return (
     <html
       lang="en"
       data-theme="Borderly"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
+        />
+      </head>
       <body className="bg-base-100 text-base-content font-body min-h-full flex flex-col">
         {children}
       </body>

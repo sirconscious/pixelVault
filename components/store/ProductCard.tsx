@@ -43,9 +43,9 @@ export default function ProductCard({ product }: { product: ProductCardData }) {
         )}
       </figure>
       <div className="card-body gap-1 p-5">
-        <h3 className="font-display font-semibold text-lg leading-tight">
+        <h2 className="font-display font-semibold text-lg leading-tight">
           {product.name}
-        </h3>
+        </h2>
         <p className="font-mono text-sm text-base-content/55">
           from{" "}
           <span className="font-semibold text-primary">

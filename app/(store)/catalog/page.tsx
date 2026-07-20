@@ -5,9 +5,22 @@ import { getAllCatalogCategories } from "@/lib/catalog";
 import CategoryImage from "@/components/store/CategoryImage";
 
 export const metadata: Metadata = {
-  title: "Catalog — PixelVault",
+  title: "Catalog",
   description:
     "Browse all available categories — Steam Wallet, Xbox Gift Cards, PC game keys, and more. Digital codes delivered over WhatsApp.",
+  alternates: { canonical: "/catalog" },
+  openGraph: {
+    title: "Catalog — PixelVault",
+    description:
+      "Browse all available categories — Steam Wallet, Xbox Gift Cards, PC game keys, and more. Digital codes delivered over WhatsApp.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Catalog — PixelVault",
+    description:
+      "Browse all available categories — Steam Wallet, Xbox Gift Cards, PC game keys, and more. Digital codes delivered over WhatsApp.",
+  },
 };
 
 function Arrow({ className = "" }: { className?: string }) {
@@ -61,7 +74,7 @@ export default async function CatalogPage() {
               className="card bg-base-100 border hairline rounded-2xl hover:border-primary/40 transition-colors group overflow-hidden cursor-target"
             >
               {c.imageUrl && (
-                <div className="w-full h-44 overflow-hidden bg-base-200">
+                <div className="relative w-full h-44 overflow-hidden bg-base-200">
                   <CategoryImage
                     src={c.imageUrl}
                     alt={c.name}
