@@ -1,8 +1,6 @@
 "use client";
 
-import { useCallback, useContext } from "react";
 import dynamic from "next/dynamic";
-import { IntroLoaderContext, PIXELBLAST_READY_EVENT } from "@/components/ui/IntroLoader";
 
 const PixelBlast = dynamic(
   () => import("@/components/ui/PixelBlast"),
@@ -10,17 +8,10 @@ const PixelBlast = dynamic(
 );
 
 export default function HeroBackground() {
-  const { onReady: ctxReady } = useContext(IntroLoaderContext);
-
-  const handleReady = useCallback(() => {
-    ctxReady();
-    window.dispatchEvent(new Event(PIXELBLAST_READY_EVENT));
-  }, [ctxReady]);
 
   return (
     <div className="absolute inset-0 z-0">
       <PixelBlast
-        onReady={handleReady}
         variant="circle"
         pixelSize={6}
         color="#a78bfa"

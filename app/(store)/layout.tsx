@@ -2,7 +2,6 @@ import { getStoreSettings } from "@/lib/settings";
 import Navbar from "@/components/store/Navbar";
 import Footer from "@/components/store/Footer";
 import Toaster from "@/components/ui/Toaster";
-import IntroLoader from "@/components/ui/IntroLoader";
 import ConditionalCursor from "@/components/store/ConditionalCursor";
 
 export default async function StoreLayout({
@@ -22,9 +21,7 @@ export default async function StoreLayout({
           whatsappNumber={settings.whatsappNumber}
           whatsappGreeting={settings.whatsappGreeting}
         />
-        <div className="flex-1">
-          <IntroLoader>{children}</IntroLoader>
-        </div>
+        <div className="flex-1">{children}</div>
         <Footer
           storeName={settings.storeName}
           whatsappNumber={settings.whatsappNumber}
