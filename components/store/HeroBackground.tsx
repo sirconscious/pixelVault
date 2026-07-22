@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 const PixelBlast = dynamic(
@@ -8,6 +9,17 @@ const PixelBlast = dynamic(
 );
 
 export default function HeroBackground() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setShow(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setShow(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  if (!show) return null;
 
   return (
     <div className="absolute inset-0 z-0">
