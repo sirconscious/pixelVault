@@ -22,7 +22,7 @@ export async function generateMetadata({
   });
   if (!product) return { title: "Product" };
   const price = product.variants[0]
-    ? `${product.variants[0].currency} ${Number(product.variants[0].price).toFixed(2)}`
+    ? `${Number(product.variants[0].price).toFixed(2)} DH`
     : "";
   const description =
     product.description ||
@@ -75,7 +75,7 @@ export default async function ProductPage({
     ? Math.min(...product.variants.map((v) => toNumber(v.price)))
     : undefined;
 
-  const currency = product.variants[0]?.currency ?? "USD";
+  const currency = product.variants[0]?.currency ?? "MAD";
 
   const productLd = {
     "@context": "https://schema.org",

@@ -54,7 +54,7 @@ export default function CartView({
     );
   }
 
-  const currency = items[0]?.currency ?? "USD";
+  const currency = items[0]?.currency ?? "MAD";
 
   const checkout = () => {
     if (!whatsapp.whatsappNumber) {
@@ -108,7 +108,7 @@ export default function CartView({
               </Link>
               <span className="font-mono text-sm text-base-content/60">{item.variantLabel}</span>
               <span className="font-mono text-sm text-primary">
-                {formatMoney(item.unitPrice, item.currency)} each
+                {formatMoney(item.unitPrice)} each
               </span>
             </div>
 
@@ -149,7 +149,7 @@ export default function CartView({
               </div>
 
               <span className="font-mono text-sm font-semibold">
-                {formatMoney(item.unitPrice * item.quantity, item.currency)}
+                {formatMoney(item.unitPrice * item.quantity)}
               </span>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function CartView({
         <h2 className="font-display text-lg font-bold">Order summary</h2>
         <div className="flex justify-between border-t hairline pt-3 text-lg font-bold">
           <span>Total</span>
-          <span>{formatMoney(total, currency)}</span>
+          <span>{formatMoney(total)}</span>
         </div>
 
         <button

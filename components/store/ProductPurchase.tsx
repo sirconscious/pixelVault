@@ -99,7 +99,7 @@ export default function ProductPurchase({
               >
                 <span>{v.label}</span>
                 <span className="opacity-80">
-                  {formatMoney(v.price, v.currency)}
+                  {formatMoney(v.price)}
                 </span>
                 {!v.inStock && <span className="badge badge-sm">Sold out</span>}
               </button>
@@ -144,7 +144,7 @@ export default function ProductPurchase({
       {/* Price + actions */}
       {selected && (
         <div className="text-2xl font-bold">
-          {formatMoney(selected.price * qty, selected.currency)}
+          {formatMoney(selected.price * qty)}
         </div>
       )}
 

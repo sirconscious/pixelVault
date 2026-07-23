@@ -20,7 +20,7 @@ export function toCardData(p: ProductWithVariants): ProductCardData {
     imageUrl: p.imageUrl,
     platform: p.platform,
     fromPrice,
-    currency: p.variants[0]?.currency ?? "USD",
+    currency: p.variants[0]?.currency ?? "MAD",
     soldOut,
   };
 }

@@ -121,8 +121,8 @@ function ProductTableRow({ product: p }: { product: ProductRow }) {
     p.variantCount === 0
       ? "—"
       : p.minPrice === p.maxPrice
-        ? formatMoney(p.minPrice, p.currency)
-        : `${formatMoney(p.minPrice, p.currency)} – ${formatMoney(p.maxPrice, p.currency)}`;
+        ? formatMoney(p.minPrice)
+        : `${formatMoney(p.minPrice)} – ${formatMoney(p.maxPrice)}`;
 
   return (
     <tr>

@@ -13,7 +13,7 @@ const DEFAULTS = {
   storeName: "My Digital Store",
   whatsappNumber: "",
   whatsappGreeting: "Hello! I'd like to order:",
-  currency: "USD",
+  currency: "MAD",
 };
 
 /**

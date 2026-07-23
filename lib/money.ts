@@ -12,15 +12,14 @@ export function toNumber(
   return Number(value.toString());
 }
 
-/** Format an amount as a currency string, e.g. formatMoney(25, "USD") -> "$25.00". */
-export function formatMoney(amount: number, currency = "USD"): string {
+/** Format an amount as Moroccan Dirham, e.g. formatMoney(25) -> "25,00 DH". */
+export function formatMoney(amount: number): string {
   try {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("fr-MA", {
       style: "currency",
-      currency,
+      currency: "MAD",
     }).format(amount);
   } catch {
-    // Fallback for invalid currency codes.
-    return `${amount.toFixed(2)} ${currency}`;
+    return `${amount.toFixed(2)} DH`;
   }
 }

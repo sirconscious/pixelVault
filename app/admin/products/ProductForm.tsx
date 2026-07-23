@@ -63,7 +63,7 @@ export default function ProductForm({
       isFeatured: initial?.isFeatured ?? false,
       sortOrder: initial?.sortOrder ?? 0,
       variants: initial?.variants ?? [
-        { label: "", price: 0, currency: "USD", inStock: true },
+        { label: "", price: 0, currency: "MAD", inStock: true },
       ],
     },
   });
@@ -207,7 +207,7 @@ export default function ProductForm({
           <div>
             <h2 className="font-semibold">Variants &amp; pricing</h2>
             <p className="text-sm opacity-70">
-              Each variant is a purchasable option (e.g. &quot;$25&quot; or
+              Each variant is a purchasable option (e.g. &quot;25 DH&quot; or
               &quot;Deluxe Edition&quot;).
             </p>
           </div>
@@ -215,7 +215,7 @@ export default function ProductForm({
             type="button"
             className="btn btn-sm btn-secondary"
             onClick={() =>
-              append({ label: "", price: 0, currency: "USD", inStock: true })
+              append({ label: "", price: 0, currency: "MAD", inStock: true })
             }
           >
             <Plus className="size-4" />
@@ -238,7 +238,7 @@ export default function ProductForm({
               <div>
                 <input
                   className={`input input-bordered w-full ${errors.variants?.[index]?.label ? "input-error" : ""}`}
-                  placeholder="Label (e.g. $25)"
+                  placeholder="Label (e.g. 25 DH)"
                   {...register(`variants.${index}.label` as const)}
                 />
                 {errors.variants?.[index]?.label && (
@@ -256,7 +256,7 @@ export default function ProductForm({
               />
               <input
                 className="input input-bordered w-24"
-                placeholder="USD"
+                placeholder="MAD"
                 {...register(`variants.${index}.currency` as const)}
               />
               <label className="flex items-center gap-2 px-1">

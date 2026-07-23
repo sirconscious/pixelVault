@@ -21,14 +21,13 @@ export function buildOrderMessage(
   items: WhatsAppLineItem[],
   greeting: string,
 ): string {
-  const currency = items[0]?.currency ?? "USD";
+  const currency = items[0]?.currency ?? "MAD";
 
   const lines = items.map((item, index) => {
     const lineTotal = item.unitPrice * item.quantity;
     const qtyPart = `x${item.quantity}`;
     return `${index + 1}. ${item.productName} — ${item.variantLabel} ${qtyPart} — ${formatMoney(
       lineTotal,
-      item.currency,
     )}`;
   });
 
@@ -42,7 +41,7 @@ export function buildOrderMessage(
     "",
     ...lines,
     "",
-    `Total: ${formatMoney(total, currency)}`,
+    `Total: ${formatMoney(total)}`,
     "",
     "Please let me know the next steps to complete this order. Thank you!",
   ].join("\n");

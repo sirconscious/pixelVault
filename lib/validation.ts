@@ -41,7 +41,7 @@ export const variantSchema = z.object({
   id: z.string().optional(),
   label: z.string().min(1, "Label is required").max(80),
   price: z.coerce.number().min(0, "Price must be >= 0"),
-  currency: z.string().min(1).max(8).default("USD"),
+  currency: z.string().min(1).max(8).default("MAD"),
   inStock: z.coerce.boolean().default(true),
 });
 export type VariantInput = z.infer<typeof variantSchema>;
@@ -71,6 +71,6 @@ export const settingsSchema = z.object({
     .min(6, "Enter the full number in international format")
     .regex(/^[0-9]{6,15}$/, "Digits only, no + or spaces (e.g. 212600000000)"),
   whatsappGreeting: z.string().min(1, "Greeting is required").max(200),
-  currency: z.string().min(1).max(8).default("USD"),
+  currency: z.string().min(1).max(8).default("MAD"),
 });
 export type SettingsInput = z.infer<typeof settingsSchema>;

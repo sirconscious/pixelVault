@@ -162,7 +162,7 @@ async function main() {
         storeName: "PixelVault",
         whatsappNumber: "212600000000",
         whatsappGreeting: "Hello! I'd like to order:",
-        currency: "USD",
+        currency: "MAD",
       },
     });
   }

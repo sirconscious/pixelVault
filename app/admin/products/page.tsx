@@ -34,7 +34,7 @@ export default async function ProductsPage() {
       variantCount: p.variants.length,
       minPrice: prices.length ? Math.min(...prices) : 0,
       maxPrice: prices.length ? Math.max(...prices) : 0,
-      currency: p.variants[0]?.currency ?? "USD",
+      currency: p.variants[0]?.currency ?? "MAD",
       isActive: p.isActive,
       isFeatured: p.isFeatured,
     };

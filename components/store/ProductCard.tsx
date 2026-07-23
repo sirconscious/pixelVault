@@ -49,7 +49,7 @@ export default function ProductCard({ product }: { product: ProductCardData }) {
         <p className="font-mono text-sm text-base-content/55">
           from{" "}
           <span className="font-semibold text-primary">
-            {formatMoney(product.fromPrice, product.currency)}
+            {formatMoney(product.fromPrice)}
           </span>
         </p>
       </div>
