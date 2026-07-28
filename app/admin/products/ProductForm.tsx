@@ -6,6 +6,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Plus, Trash2, Loader2, Save } from "lucide-react";
+import ImageUpload from "@/components/ui/ImageUpload";
 import { toast } from "@/components/ui/toast";
 import { slugify } from "@/lib/slug";
 import { productSchema, type ProductInput } from "@/lib/validation";
@@ -140,13 +141,12 @@ export default function ProductForm({
             />
           </Field>
 
-          <Field label="Image URL" error={errors.imageUrl?.message}>
-            <input
-              className={`input input-bordered w-full ${errors.imageUrl ? "input-error" : ""}`}
-              placeholder="https://…"
-              {...register("imageUrl")}
-            />
-          </Field>
+          <ImageUpload
+            value={watch("imageUrl") ?? ""}
+            onChange={(url) => setValue("imageUrl", url || null as unknown as string)}
+            folder="products"
+            label="Product image"
+          />
         </div>
 
         {/* Meta */}

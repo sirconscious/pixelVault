@@ -54,8 +54,6 @@ export default function CartView({
     );
   }
 
-  const currency = items[0]?.currency ?? "MAD";
-
   const checkout = () => {
     if (!whatsapp.whatsappNumber) {
       toast.error("Store WhatsApp number is not configured yet.");
@@ -90,6 +88,7 @@ export default function CartView({
                   alt={item.productName}
                   fill
                   sizes="80px"
+                  quality={75}
                   className="object-cover"
                 />
               ) : (

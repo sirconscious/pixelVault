@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Plus, Pencil, Trash2, Search, Loader2 } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import ConfirmButton from "@/components/ui/ConfirmButton";
+import ImageUpload from "@/components/ui/ImageUpload";
 import { toast } from "@/components/ui/toast";
 import { slugify } from "@/lib/slug";
 import { categorySchema, type CategoryInput } from "@/lib/validation";
@@ -272,13 +273,12 @@ function CategoryForm({
         />
       </Field>
 
-      <Field label="Image URL" error={errors.imageUrl?.message}>
-        <input
-          className={`input input-bordered w-full ${errors.imageUrl ? "input-error" : ""}`}
-          placeholder="https://…"
-          {...register("imageUrl")}
-        />
-      </Field>
+      <ImageUpload
+        value={watch("imageUrl") ?? ""}
+        onChange={(url) => setValue("imageUrl", url || null as unknown as string)}
+        folder="categories"
+        label="Category image"
+      />
 
       <div className="flex gap-3">
         <Field label="Sort order" error={errors.sortOrder?.message}>

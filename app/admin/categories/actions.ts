@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { deleteBlobIfExists } from "@/lib/blob";
 import { categorySchema } from "@/lib/validation";
 import type { ActionResult } from "@/lib/types";
 
@@ -64,6 +65,11 @@ export async function updateCategory(
     return { ok: false, error: "That slug is already taken.", fieldErrors: { slug: "Slug already in use" } };
   }
 
+  const existing = await prisma.category.findUnique({ where: { id } });
+  if (existing && existing.imageUrl !== parsed.data.imageUrl) {
+    await deleteBlobIfExists(existing.imageUrl);
+  }
+
   await prisma.category.update({ where: { id }, data: parsed.data });
   revalidate();
   return { ok: true, message: "Category updated" };
@@ -88,7 +94,9 @@ export async function deleteCategory(id: string): Promise<ActionResult> {
       error: `Cannot delete — ${count} product(s) still use this category. Reassign or remove them first.`,
     };
   }
+  const existing = await prisma.category.findUnique({ where: { id } });
   await prisma.category.delete({ where: { id } });
+  if (existing?.imageUrl) await deleteBlobIfExists(existing.imageUrl);
   revalidate();
   return { ok: true, message: "Category deleted" };
 }

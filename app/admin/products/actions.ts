@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { deleteBlobIfExists } from "@/lib/blob";
 import { productSchema } from "@/lib/validation";
 import type { ActionResult } from "@/lib/types";
 
@@ -100,6 +101,7 @@ export async function updateProduct(
   }
 
   // Replace variants wholesale for simplicity.
+  const existing = await prisma.product.findUnique({ where: { id } });
   await prisma.$transaction([
     prisma.productVariant.deleteMany({ where: { productId: id } }),
     prisma.product.update({
@@ -127,6 +129,10 @@ export async function updateProduct(
     }),
   ]);
 
+  if (existing && existing.imageUrl !== data.imageUrl) {
+    await deleteBlobIfExists(existing.imageUrl);
+  }
+
   revalidate();
   revalidatePath(`/product/${data.slug}`);
   return { ok: true, message: "Product updated" };
@@ -145,7 +151,9 @@ export async function toggleProductFlag(
 
 export async function deleteProduct(id: string): Promise<ActionResult> {
   await requireAdmin();
+  const existing = await prisma.product.findUnique({ where: { id } });
   await prisma.product.delete({ where: { id } }); // variants cascade
+  if (existing?.imageUrl) await deleteBlobIfExists(existing.imageUrl);
   revalidate();
   return { ok: true, message: "Product deleted" };
 }

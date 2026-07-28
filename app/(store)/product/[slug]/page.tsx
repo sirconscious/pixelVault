@@ -149,6 +149,7 @@ export default async function ProductPage({
               alt={product.name}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={85}
               className="object-cover"
               priority
             />

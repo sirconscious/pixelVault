@@ -21,8 +21,6 @@ export function buildOrderMessage(
   items: WhatsAppLineItem[],
   greeting: string,
 ): string {
-  const currency = items[0]?.currency ?? "MAD";
-
   const lines = items.map((item, index) => {
     const lineTotal = item.unitPrice * item.quantity;
     const qtyPart = `x${item.quantity}`;

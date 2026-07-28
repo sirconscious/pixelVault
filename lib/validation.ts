@@ -64,6 +64,24 @@ export const productSchema = z.object({
 });
 export type ProductInput = z.infer<typeof productSchema>;
 
+export const carouselImageSchema = z.object({
+  title: z.string().min(1, "Title is required").max(100),
+  subtitle: z
+    .string()
+    .max(200)
+    .optional()
+    .transform((v) => (v ? v : null)),
+  imageUrl: z.string().min(1, "Image URL is required").url("Enter a valid URL"),
+  link: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : null)),
+  sortOrder: z.coerce.number().int().min(0).default(0),
+  isActive: z.coerce.boolean().default(true),
+});
+export type CarouselImageInput = z.infer<typeof carouselImageSchema>;
+
 export const settingsSchema = z.object({
   storeName: z.string().min(1, "Store name is required").max(80),
   whatsappNumber: z

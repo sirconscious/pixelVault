@@ -10,6 +10,7 @@ import {
   LogOut,
   Gamepad2,
   Store,
+  Images,
 } from "lucide-react";
 import { logoutAction } from "./login/actions";
 
@@ -17,6 +18,7 @@ const LINKS = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
   { href: "/admin/categories", label: "Categories", icon: FolderTree },
   { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/carousel", label: "Carousel", icon: Images },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

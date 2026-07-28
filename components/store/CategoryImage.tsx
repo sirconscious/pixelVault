@@ -15,6 +15,7 @@ export default function CategoryImage({
       alt={alt}
       fill
       sizes="(max-width: 768px) 100vw, 33vw"
+      quality={80}
       className={className}
     />
   );

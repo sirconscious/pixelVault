@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { getStoreSettings } from "@/lib/settings";
-import { getCatalogCategories } from "@/lib/catalog";
+import { getCatalogCategories, getFeaturedProducts, getCarouselImages } from "@/lib/catalog";
 import { buildWaLink } from "@/lib/whatsapp";
 import HomeMotion from "@/components/store/HomeMotion";
 import CategoryImage from "@/components/store/CategoryImage";
-import HeroBackground from "@/components/store/HeroBackground";
+import ProductCard from "@/components/store/ProductCard";
+import HeroCarousel from "@/components/store/HeroCarousel";
 
 function WhatsAppGlyph({ className = "" }: { className?: string }) {
   return (
@@ -23,9 +24,11 @@ function Arrow({ className = "" }: { className?: string }) {
 }
 
 export default async function HomePage() {
-  const [settings, categories] = await Promise.all([
+  const [settings, categories, featuredProducts, carouselImages] = await Promise.all([
     getStoreSettings(),
     getCatalogCategories(3),
+    getFeaturedProducts(6),
+    getCarouselImages(),
   ]);
 
   const waLink = settings.whatsappNumber
@@ -52,160 +55,102 @@ export default async function HomePage() {
     <>
       <HomeMotion />
 
-      {/* HERO */}
-      <header className="relative overflow-hidden">
-        <HeroBackground />
+      {/* HERO CAROUSEL */}
+      <section className="relative">
+        <HeroCarousel slides={carouselImages} />
+      </section>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-7">
-              <div
-                className="font-mono text-xs uppercase tracking-[0.22em] text-primary/80 mb-8 flex items-center gap-3"
-                data-reveal
-              >
-                <span className="inline-block w-6 h-px bg-primary/60" />
-                Game credits · WhatsApp checkout
-              </div>
-
-              <h1
-                className="font-display font-semibold tracking-tight text-[2.6rem] sm:text-6xl lg:text-[5rem] leading-[0.95] mb-8 cursor-target"
-                data-reveal
-                data-delay="0.05"
-              >
-                Buy game credit
-                <br />
-                the way you&apos;d ask
-                <br />
-                <span className="display-italic text-primary">a friend.</span>
-              </h1>
-
-              <p
-                className="text-base lg:text-lg text-base-content/65 max-w-xl leading-relaxed mb-10"
-                data-reveal
-                data-delay="0.1"
-              >
-                Steam Wallet codes, Xbox Gift Cards, PC game keys. Assemble your
-                order, send it on WhatsApp, and a real person replies with your
-                codes. No account. No card form. No checkout page.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3" data-reveal data-delay="0.15">
-                <Link href="/catalog" className="btn btn-primary rounded-md gap-2 font-medium normal-case">
-                  Browse products
-                  <Arrow className="w-4 h-4" />
-                </Link>
-                <Link href="#how" className="btn btn-ghost rounded-md gap-2 font-medium text-base-content/80 normal-case">
-                  How it works
-                </Link>
-              </div>
-
-              <div
-                className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-base-content/40"
-                data-reveal
-                data-delay="0.2"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-success live-dot" />
-                  online now
-                </div>
-                <div>avg reply &lt; 5 min</div>
-                <div>no sign-up</div>
-              </div>
-            </div>
-
-            {/* Live status card (decorative) */}
-            <div className="lg:col-span-5 lg:mt-4" data-reveal data-delay="0.25">
-              <div className="rounded-2xl border hairline bg-base-200/40 backdrop-blur-sm p-6 lg:p-7">
-                <div className="flex items-center justify-between mb-6 pb-4 border-b hairline">
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-success live-dot" />
-                    <span className="font-mono text-xs uppercase tracking-wider text-base-content/60">
-                      Live · today
-                    </span>
-                  </div>
-                  <span className="font-mono text-xs text-base-content/40">WET</span>
-                </div>
-
-                <div className="space-y-5">
-                  <div>
-                    <div className="font-mono text-xs text-base-content/45 uppercase tracking-wider mb-1.5">
-                      Avg reply time
-                    </div>
-                    <div className="font-display text-3xl font-semibold">4m 18s</div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t hairline">
-                    <div>
-                      <div className="font-mono text-xs text-base-content/45 uppercase tracking-wider mb-1.5">
-                        Orders today
-                      </div>
-                      <div className="font-display text-2xl font-semibold">47</div>
-                    </div>
-                    <div>
-                      <div className="font-mono text-xs text-base-content/45 uppercase tracking-wider mb-1.5">
-                        Codes sent
-                      </div>
-                      <div className="font-display text-2xl font-semibold">112</div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t hairline">
-                    <div className="font-mono text-xs text-base-content/45 uppercase tracking-wider mb-2">
-                      Last delivery
-                    </div>
-                    <div className="font-mono text-sm text-base-content/70 space-y-1">
-                      <div>2× Steam Wallet $20</div>
-                      <div>1× Cyberpunk 2077 PC</div>
-                      <div className="text-primary/80">→ delivered in 3m 42s</div>
-                    </div>
-                  </div>
+      {/* TRUST STRIP */}
+      <section className="border-y hairline bg-base-200/30">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
+            {[
+              { icon: "⚡", label: "Instant delivery", sub: "Codes sent within minutes" },
+              { icon: "💬", label: "WhatsApp checkout", sub: "No forms, no accounts" },
+              { icon: "🛡️", label: "Trusted by hundreds", sub: "Real people, real support" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center gap-3 justify-center sm:justify-start">
+                <span className="text-2xl">{item.icon}</span>
+                <div>
+                  <div className="font-display font-semibold text-sm">{item.label}</div>
+                  <div className="text-xs text-base-content/55">{item.sub}</div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* MARQUEE */}
-        <div className="border-y hairline py-5 marquee-mask overflow-hidden bg-base-200/30">
-          <div className="marquee-track font-mono text-sm uppercase tracking-wider text-base-content/55">
-            {[0, 1].map((dup) => (
-              <span className="flex items-center" key={dup} aria-hidden={dup === 1}>
-                {marqueeItems.map((item, i) => (
-                  <span className="flex items-center" key={i}>
-                    <span className={`px-6 ${item.accent ? "text-primary/70" : ""}`}>
-                      {item.text}
-                    </span>
-                    <span className="text-base-content/25">/</span>
-                  </span>
-                ))}
-              </span>
             ))}
           </div>
         </div>
-      </header>
+      </section>
+
+      {/* MARQUEE */}
+      <div className="border-b hairline py-5 marquee-mask overflow-hidden bg-base-200/20">
+        <div className="marquee-track font-mono text-sm uppercase tracking-wider text-base-content/55">
+          {[0, 1].map((dup) => (
+            <span className="flex items-center" key={dup} aria-hidden={dup === 1}>
+              {marqueeItems.map((item, i) => (
+                <span className="flex items-center" key={i}>
+                  <span className={`px-6 ${item.accent ? "text-primary/70" : ""}`}>
+                    {item.text}
+                  </span>
+                  <span className="text-base-content/25">/</span>
+                </span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
 
       <main>
+        {/* FEATURED PRODUCTS */}
+        {featuredProducts.length > 0 && (
+          <section className="py-20 lg:py-28">
+            <div className="max-w-7xl mx-auto px-6 lg:px-10">
+              <div className="flex flex-wrap items-end justify-between gap-6 mb-12" data-reveal>
+                <div>
+                  <div className="font-mono text-xs uppercase tracking-[0.22em] text-primary/80 mb-5 flex items-center gap-3">
+                    <span className="inline-block w-6 h-px bg-primary/60" />
+                    Featured
+                  </div>
+                  <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight max-w-2xl cursor-target">
+                    Popular right now
+                  </h2>
+                </div>
+                <Link
+                  href="/catalog"
+                  className="font-mono text-sm text-base-content/70 hover:text-primary transition-colors flex items-center gap-2 shrink-0"
+                >
+                  View all
+                  <Arrow className="w-4 h-4" />
+                </Link>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
+                {featuredProducts.map((p) => (
+                  <div key={p.slug} data-stagger-item>
+                    <ProductCard product={p} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* HOW IT WORKS */}
-        <section id="how" className="py-28 lg:py-36 scroll-mt-20">
+        <section id="how" className="py-20 lg:py-28 border-t hairline scroll-mt-20">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <div className="grid lg:grid-cols-12 gap-12 mb-16 lg:mb-24" data-reveal>
+            <div className="grid lg:grid-cols-12 gap-12 mb-16 lg:mb-20" data-reveal>
               <div className="lg:col-span-5">
                 <div className="font-mono text-xs uppercase tracking-[0.22em] text-primary/80 mb-5 flex items-center gap-3">
                   <span className="inline-block w-6 h-px bg-primary/60" />
                   How it works
                 </div>
                 <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight cursor-target">
-                  Three steps. None of them are{" "}
-                  <span className="italic text-base-content/55">
-                    &apos;proceed to checkout.&apos;
-                  </span>
+                  Three steps. No account needed.
                 </h2>
               </div>
               <div className="lg:col-span-6 lg:col-start-7 lg:pt-3">
                 <p className="text-base-content/65 text-lg leading-relaxed">
-                  The shortest path between wanting a top-up and having the code
-                  in your clipboard. No middleware, no abandoned-cart emails, no
-                  saved payment info.
+                  The fastest path from wanting a top-up to having the code in
+                  your clipboard. No forms, no sign-ups, no waiting.
                 </p>
               </div>
             </div>
@@ -221,12 +166,12 @@ export default async function HomePage() {
                   {
                     n: "02",
                     t: "Send the message",
-                    d: "One tap opens WhatsApp with your order written out as a plain message. Edit it, send it, done. No form fields.",
+                    d: "One tap opens WhatsApp with your order written out as a plain message. Edit it, send it, done.",
                   },
                   {
                     n: "03",
                     t: "Get your codes",
-                    d: "A real person reads your message, replies with your codes, and you pay them directly. That's the entire handoff.",
+                    d: "A real person reads your message, replies with your codes, and you pay them directly.",
                   },
                 ].map((step, i) => (
                   <div
@@ -257,13 +202,13 @@ export default async function HomePage() {
         </section>
 
         {/* CATALOG PREVIEW */}
-        <section id="catalog" className="py-28 lg:py-36 border-t hairline bg-base-200/20 scroll-mt-20">
+        <section id="catalog" className="py-20 lg:py-28 border-t hairline bg-base-200/20 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
             <div className="flex flex-wrap items-end justify-between gap-6 mb-14" data-reveal>
               <div>
                 <div className="font-mono text-xs uppercase tracking-[0.22em] text-primary/80 mb-5 flex items-center gap-3">
                   <span className="inline-block w-6 h-px bg-primary/60" />
-                  Catalog preview
+                  Browse by category
                 </div>
                 <h2 className="font-display font-semibold text-4xl lg:text-5xl leading-tight tracking-tight max-w-2xl cursor-target">
                   Pick a shelf, mix across them.
@@ -351,8 +296,8 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* CHECKOUT / SIGNATURE */}
-        <section id="checkout" className="py-28 lg:py-40 border-t hairline relative overflow-hidden scroll-mt-20">
+        {/* WHATSAPP CHECKOUT */}
+        <section id="checkout" className="py-20 lg:py-28 border-t hairline relative overflow-hidden scroll-mt-20">
           <div
             className="absolute top-1/2 right-0 w-[700px] h-[700px] rounded-full pointer-events-none opacity-50 -translate-y-1/2 translate-x-1/3"
             style={{
@@ -452,9 +397,9 @@ export default async function HomePage() {
                       </div>
 
                       {[
-                        { t: "2× Steam Wallet $20", p: "$40.00" },
-                        { t: "1× Xbox Gift Card $15", p: "$15.00" },
-                        { t: "1× Cyberpunk 2077 PC key", p: "$20.00" },
+                        { t: "2× Steam Wallet 100 DH", p: "200,00 DH" },
+                        { t: "1× Xbox Gift Card 150 DH", p: "150,00 DH" },
+                        { t: "1× Cyber Adventure PC key", p: "150,00 DH" },
                       ].map((m) => (
                         <div className="flex justify-end" data-bubble key={m.t}>
                           <div className="bubble-out rounded-2xl rounded-tr-md px-3.5 py-2.5 max-w-[78%] text-sm font-mono">
@@ -480,7 +425,7 @@ export default async function HomePage() {
                             Total · 4 items
                           </div>
                           <div className="font-display text-3xl font-bold leading-none mb-1.5">
-                            $75.00
+                            500,00 DH
                           </div>
                           <div className="text-xs opacity-85 leading-relaxed">
                             Confirm and I&apos;ll send the codes here. Pay when

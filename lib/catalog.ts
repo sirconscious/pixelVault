@@ -43,6 +43,33 @@ export async function getActiveCategories() {
   });
 }
 
+export type CarouselSlide = {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  imageUrl: string;
+  link: string | null;
+  sortOrder: number;
+  isActive: boolean;
+};
+
+/** Active carousel images sorted by sortOrder — used in the homepage hero. */
+export async function getCarouselImages(): Promise<CarouselSlide[]> {
+  const images = await prisma.carouselImage.findMany({
+    where: { isActive: true },
+    orderBy: { sortOrder: "asc" },
+  });
+  return images.map((img) => ({
+    id: img.id,
+    title: img.title,
+    subtitle: img.subtitle,
+    imageUrl: img.imageUrl,
+    link: img.link,
+    sortOrder: img.sortOrder,
+    isActive: img.isActive,
+  }));
+}
+
 export type CatalogCategory = {
   name: string;
   slug: string;

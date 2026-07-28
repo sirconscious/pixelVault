@@ -21,7 +21,7 @@ async function main() {
       slug: "steam-cards",
       description: "Top up your Steam Wallet instantly with digital codes.",
       imageUrl:
-        "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&q=80",
+        "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=1200&q=85",
       sortOrder: 1,
     },
   });
@@ -32,7 +32,7 @@ async function main() {
       slug: "xbox-cards",
       description: "Xbox Gift Cards for games, add-ons and subscriptions.",
       imageUrl:
-        "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=800&q=80",
+        "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=1200&q=85",
       sortOrder: 2,
     },
   });
@@ -43,7 +43,7 @@ async function main() {
       slug: "games",
       description: "Digital game keys for PC and Xbox — instant delivery.",
       imageUrl:
-        "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&q=80",
+        "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1200&q=85",
       sortOrder: 3,
     },
   });
@@ -56,7 +56,7 @@ async function main() {
       description:
         "Add funds to your Steam Wallet to buy games, DLC, and in-game items. Delivered as a digital code.",
       imageUrl:
-        "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=800&q=80",
+        "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=1200&q=85",
       platform: "Steam",
       categoryId: steam.id,
       isFeatured: true,
@@ -78,7 +78,7 @@ async function main() {
       description:
         "Spend on games, apps, movies and more across Xbox and the Microsoft Store. Digital code delivery.",
       imageUrl:
-        "https://images.unsplash.com/photo-1617096200347-cb04ae810b1d?w=800&q=80",
+        "https://images.unsplash.com/photo-1617096200347-cb04ae810b1d?w=1200&q=85",
       platform: "Xbox",
       categoryId: xbox.id,
       isFeatured: true,
@@ -100,7 +100,7 @@ async function main() {
       description:
         "A neon-soaked open-world RPG. Choose your edition below — Deluxe includes the season pass.",
       imageUrl:
-        "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80",
+        "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&q=85",
       platform: "PC",
       categoryId: games.id,
       isFeatured: true,
@@ -121,7 +121,7 @@ async function main() {
       description:
         "High-speed anti-gravity racing across the galaxy. Cross-play on PC and Xbox.",
       imageUrl:
-        "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80",
+        "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&q=85",
       platform: "Xbox",
       categoryId: games.id,
       sortOrder: 2,
@@ -141,7 +141,7 @@ async function main() {
       description:
         "A dark fantasy action-RPG. Includes base game and the Ascension expansion in Deluxe.",
       imageUrl:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
+        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&q=85",
       platform: "PC",
       categoryId: games.id,
       sortOrder: 3,
@@ -152,6 +152,39 @@ async function main() {
         ],
       },
     },
+  });
+
+  // --- Carousel images ---
+  await prisma.carouselImage.createMany({
+    data: [
+      {
+        title: "Steam Wallet — Instant Top-Up",
+        subtitle:
+          "Add funds to your Steam Wallet in seconds. Digital codes delivered over WhatsApp.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=1920&q=85",
+        link: "/category/steam-cards",
+        sortOrder: 1,
+      },
+      {
+        title: "Xbox Gift Cards — Ready Now",
+        subtitle:
+          "Spend on games, apps, and subscriptions across Xbox and Microsoft Store.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=1920&q=85",
+        link: "/category/xbox-cards",
+        sortOrder: 2,
+      },
+      {
+        title: "PC Games — From 25 DH",
+        subtitle:
+          "Digital game keys for Steam and Xbox. Pick your edition, we send the code.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1920&q=85",
+        link: "/category/games",
+        sortOrder: 3,
+      },
+    ],
   });
 
   // --- Store settings (singleton) ---
