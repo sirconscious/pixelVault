@@ -16,6 +16,7 @@ async function requireAdmin() {
 function revalidate() {
   revalidatePath("/admin/products");
   revalidatePath("/admin");
+  revalidatePath("/catalog");
   revalidatePath("/");
 }
 

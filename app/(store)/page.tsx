@@ -23,6 +23,8 @@ function Arrow({ className = "" }: { className?: string }) {
   );
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [settings, categories, featuredProducts, carouselImages] = await Promise.all([
     getStoreSettings(),

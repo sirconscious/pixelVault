@@ -4,6 +4,8 @@ import Footer from "@/components/store/Footer";
 import Toaster from "@/components/ui/Toaster";
 import ConditionalCursor from "@/components/store/ConditionalCursor";
 
+export const dynamic = "force-dynamic";
+
 export default async function StoreLayout({
   children,
 }: {

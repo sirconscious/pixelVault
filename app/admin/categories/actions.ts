@@ -26,6 +26,7 @@ function parse(formData: FormData) {
 function revalidate() {
   revalidatePath("/admin/categories");
   revalidatePath("/admin");
+  revalidatePath("/catalog");
   revalidatePath("/");
 }
 
