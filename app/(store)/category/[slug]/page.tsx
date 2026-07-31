@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { toCardData } from "@/lib/catalog";
-import ProductCard from "@/components/store/ProductCard";
+import ProductFilters from "@/components/store/ProductFilters";
 
 export async function generateMetadata({
   params,
@@ -51,6 +51,7 @@ export default async function CategoryPage({
   if (!category) notFound();
 
   const products = category.products.map(toCardData);
+  const platforms = [...new Set(products.map((p) => p.platform))].sort();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -123,11 +124,7 @@ export default async function CategoryPage({
           No products in this category yet.
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
+        <ProductFilters products={products} platforms={platforms} />
       )}
     </div>
     </>

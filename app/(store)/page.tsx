@@ -60,27 +60,6 @@ export default async function HomePage() {
         <HeroCarousel slides={carouselImages} />
       </section>
 
-      {/* TRUST STRIP */}
-      <section className="border-y hairline bg-base-200/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
-            {[
-              { icon: "⚡", label: "Instant delivery", sub: "Codes sent within minutes" },
-              { icon: "💬", label: "WhatsApp checkout", sub: "No forms, no accounts" },
-              { icon: "🛡️", label: "Trusted by hundreds", sub: "Real people, real support" },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center gap-3 justify-center sm:justify-start">
-                <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <div className="font-display font-semibold text-sm">{item.label}</div>
-                  <div className="text-xs text-base-content/55">{item.sub}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* MARQUEE */}
       <div className="border-b hairline py-5 marquee-mask overflow-hidden bg-base-200/20">
         <div className="marquee-track font-mono text-sm uppercase tracking-wider text-base-content/55">
